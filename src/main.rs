@@ -46,6 +46,7 @@ fn handle_user_input(matches: clap::ArgMatches) {
 
 fn build_crate_at_path_windows(crate_path: &PathBuf) {
     // TODO maybe rust offers a better ways to compile a crate
+    // TODO need to implement linux version of this and test linux path handling here, see #2
     Command::new("cmd")
         .current_dir(crate_path)
         .args(["/C", "cargo build"])
