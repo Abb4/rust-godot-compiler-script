@@ -5,7 +5,6 @@ use std::{
 };
 
 use clap::{crate_version, App, Arg};
-use dunce::canonicalize;
 
 fn main() {
     let app = App::new("rust-godot compiler script")
@@ -51,7 +50,7 @@ fn build_crate_at_path_windows(crate_path: &PathBuf) {
         .current_dir(crate_path)
         .args(["/C", "cargo build"])
         .status()
-        .expect("command failed"); // TODO better error message
+        .expect("cargo build command failed");
 }
 
 fn path_from_arg(arg_name: &str, matches: &clap::ArgMatches) -> PathBuf {
@@ -59,15 +58,5 @@ fn path_from_arg(arg_name: &str, matches: &clap::ArgMatches) -> PathBuf {
         .value_of(arg_name)
         .expect(format!("Argument with name {} not found", arg_name).as_str());
 
-    // TODO Implement absolute path handling
-    // from now on assuming relative and existing path was provided, maybe like this:
-    // let crate_dir = canonicalize(Path::new(crate_dir)).unwrap_or(Path::new(".").join(crate_dir));
-
-    canonicalize(Path::new(dir_path)).expect(
-        format!(
-            "Could not canonicalize directory from argument {}",
-            arg_name
-        )
-        .as_str(),
-    )
+    Path::new(dir_path).to_path_buf()
 }
