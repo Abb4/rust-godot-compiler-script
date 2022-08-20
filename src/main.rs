@@ -45,6 +45,12 @@ fn handle_user_input(matches: clap::ArgMatches) {
     build_crate_at_path_windows(&crate_path);
 
     move_built_dll_to_target_path(&crate_path, &target_path);
+
+    create_godot_classes_from_crate_source(&crate_path, &target_path);
+}
+
+fn create_godot_classes_from_crate_source(crate_path: &PathBuf, target_path: &PathBuf) {
+    todo!() // TODO, see #5
 }
 
 fn move_built_dll_to_target_path(crate_path: &PathBuf, target_path: &PathBuf) {
