@@ -40,8 +40,15 @@ fn crate_target_dir_path_arg() -> Arg<'static, 'static> {
 
 fn handle_user_input(matches: clap::ArgMatches) {
     let crate_path = path_from_arg("crate-dir", &matches);
+    let target_path = path_from_arg("target-dir", &matches);
 
     build_crate_at_path_windows(&crate_path);
+
+    move_built_dll_to_target_path(&crate_path, &target_path);
+}
+
+fn move_built_dll_to_target_path(crate_path: &PathBuf, target_path: &PathBuf) {
+    todo!() // TODO, see #3
 }
 
 fn build_crate_at_path_windows(crate_path: &PathBuf) {
